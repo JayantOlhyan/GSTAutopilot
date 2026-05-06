@@ -1,112 +1,108 @@
 # ⚡ GSTAutopilot
 
-**The ultimate AI-powered invoicing engine for Indian small businesses and freelancers.**
+**Redefining Indian Invoicing through the lens of "Internet Value."**
 
-GSTAutopilot is a stateless, high-performance web application designed to simplify GST compliance. It automates the complex parts of invoicing—like SAC code detection and tax splitting—so business owners can focus on what they do best.
+GSTAutopilot is not just another invoicing tool; it represents a shift in how consumer-facing software provides value. By leveraging AI to "review" and automate complex regulatory logic, we transform a historically tedious manual process into a streamlined, high-leverage digital experience.
 
 ![GSTAutopilot Preview](https://via.placeholder.com/1200x600?text=GSTAutopilot+Premium+Dashboard+Preview)
 
 ---
 
+## 🌐 The Vision: Internet Value for MSMEs
+
+We believe we are in a unique global situation where "Internet Value"—the ability for digital tools to actively analyze and solve problems—is finally reaching the hands of the everyday consumer. GSTAutopilot embodies this by:
+- **Intelligent Review**: AI doesn't just store data; it reviews your service and advises on compliance (SAC codes).
+- **Stateless Freedom**: High-value utility shouldn't require high-friction barriers (like forced accounts or invasive databases).
+- **Architectural Integrity**: A monorepo structure that ensures the frontend and backend are always in sync with shared validation schemas.
+
+---
+
 ## ✨ Key Features
 
-- **🤖 AI-Powered SAC Detection**: Just describe your service, and our Gemini 2.5 AI will instantly find the correct 6-digit SAC code for you.
-- **📄 GST-Compliant PDF Generation**: Generate professional, beautiful invoices with automated CGST, SGST, and IGST splitting.
-- **📊 Session-Based Dashboard**: Track your invoicing activity in real-time with dynamic charts and metrics (privacy-focused, no database required).
-- **📥 GSTR-1 Ready Exports**: Export your monthly invoices directly into the official GSTN-compliant B2B JSON format.
-- **🛡️ Strictly Deterministic**: Built-in validation for 37 Indian States/UTs and real-time GSTIN checksum verification.
-- **💎 Premium UX**: A sleek, responsive interface built with Tailwind CSS and shadcn/ui.
+- **🤖 AI SAC Engine**: Powered by Gemini 2.5 Pro. It understands your business context to detect the correct 6-digit SAC code instantly.
+- **🛡️ Deterministic Tax Logic**: Handles Intra-state (CGST+SGST) and Inter-state (IGST) splitting with 100% mathematical accuracy using integer paise.
+- **📄 Pro-Grade PDFs**: Generates professional tax invoices in memory using PDFKit, ready for immediate download.
+- **📊 Live Dashboard**: Real-time metrics and Recharts-powered trend analysis for the current session.
+- **📥 GSTR-1 Portal Ready**: Export B2B JSON files that can be uploaded directly to the official GST portal.
+- **✅ Verification Badges**: Real-time validation of GSTIN formats and checksums.
+
+---
+
+## 🏗️ System Architecture
+
+```mermaid
+graph TD
+    User((User)) -->|React UI| FE[Frontend - Vite/Tailwind]
+    FE -->|Shared Schemas| Shared[Zod/TS Shared Layer]
+    FE -->|API Request| BE[Backend - Express/TS]
+    Shared -.-> BE
+    BE -->|AI Logic| Gemini[Google Gemini AI]
+    BE -->|PDF Build| PDF[PDFKit Engine]
+    BE -->|JSON Map| GSTN[GSTR-1 JSON Generator]
+    BE -->|Response| FE
+```
 
 ---
 
 ## 🛠️ Tech Stack
 
-### Frontend
-- **Framework**: React 18 (Vite)
-- **Styling**: Tailwind CSS + shadcn/ui
-- **State Management**: Zustand
-- **Form Handling**: React Hook Form + Zod
-- **Visuals**: Recharts & Lucide Icons
-
-### Backend
-- **Runtime**: Node.js (Express + TypeScript)
-- **AI**: Google Gemini AI (Gemini 2.5 Pro)
-- **PDF Engine**: PDFKit
-- **Logging**: Pino
-- **Security**: Helmet, CORS, and Rate Limiting
-
-### Shared Package
-- **Validation**: Shared Zod schemas for both frontend and backend.
-- **Data**: Hardcoded Indian State codes and GST meta-data.
+| Layer | Technologies |
+| :--- | :--- |
+| **Frontend** | React 18, Vite, Tailwind CSS, shadcn/ui, Zustand, Recharts, Lucide Icons |
+| **Backend** | Node.js, Express, TypeScript, PDFKit, Pino, Helmet, express-rate-limit |
+| **AI** | Google Gemini AI (`gemini-2.5-pro-preview-05-06`) |
+| **Validation** | Zod (Shared across monorepo) |
 
 ---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js (v20+)
-- npm or pnpm
-- A [Google AI API Key](https://aistudio.google.com/) (for SAC detection)
+- **Node.js**: v20 or higher
+- **npm**: v9 or higher
+- **Gemini API Key**: Obtain from [Google AI Studio](https://aistudio.google.com/)
 
-### Installation
+### Installation & Setup
 
-1. **Clone the repository:**
+1. **Clone & Install:**
    ```bash
    git clone https://github.com/JayantOlhyan/GSTAutopilot.git
    cd GSTAutopilot
-   ```
-
-2. **Install dependencies:**
-   ```bash
    npm install
    ```
 
-3. **Configure Environment Variables:**
-
-   **In `backend/`:**
-   Create a `.env` file based on `.env.example`:
+2. **Backend Configuration:**
+   Create `backend/.env`:
    ```env
    PORT=3001
-   GEMINI_API_KEY=your_api_key_here
+   GEMINI_API_KEY=your_key
    FRONTEND_URL=http://localhost:5173
    ```
 
-   **In `frontend/`:**
-   Create a `.env` file based on `.env.example`:
+3. **Frontend Configuration:**
+   Create `frontend/.env`:
    ```env
    VITE_API_URL=http://localhost:3001
    ```
 
-### Running the App
-
-Run both frontend and backend simultaneously using workspaces:
+### Running Locally
 
 ```bash
-# Start Backend
+# Terminal 1: Backend
 npm run dev --workspace=gstautopilot-backend
 
-# Start Frontend
+# Terminal 2: Frontend
 npm run dev --workspace=gstautopilot-frontend
 ```
 
 ---
 
-## 🏗️ Project Structure
+## 🛡️ Data Privacy & Statelessness
 
-```text
-├── shared/          # Shared Zod schemas and TypeScript types
-├── backend/         # Express API & stateless services (AI, PDF, GSTR)
-└── frontend/        # React + Vite application
-```
-
----
-
-## 🛡️ Privacy & Security
-
-GSTAutopilot is designed to be **stateless**. 
-- Your business data is saved to your browser's `localStorage`.
-- Your generated invoices are kept in `sessionStorage` and cleared when you close the tab.
-- We **never** log PII (like GSTINs) to our servers.
+GSTAutopilot is built on the principle of **Maximum Value, Minimum Friction**.
+- **No Database**: We do not store your client or business data on our servers.
+- **Local Persistence**: Business profiles are stored in your browser's `localStorage`.
+- **Session Intelligence**: Invoice history for the dashboard is kept in `sessionStorage` and persists only as long as your tab is open.
 
 ---
 
@@ -116,4 +112,4 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ---
 
-**Built for the future of Indian Business by [Jayant Olhyan](https://github.com/JayantOlhyan)**
+**Crafted for the future of Indian Business by [Jayant Olhyan](https://github.com/JayantOlhyan)**
