@@ -6,5 +6,8 @@
     "shared",
     "backend",
     "frontend"
-  ]
+  ],
+  "scripts": {
+    "build": "npm run build --workspace=gstautopilot-frontend"
+  }
 }
