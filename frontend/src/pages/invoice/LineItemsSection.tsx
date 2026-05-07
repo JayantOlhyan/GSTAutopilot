@@ -10,15 +10,14 @@ import { useAiSettingsStore } from "@/stores/settingsStore";
 import { apiClient } from "@/lib/axios";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
 
 function LineItemRow({ index, remove, canRemove }: { index: number, remove: (i: number) => void, canRemove: boolean }) {
-  const { register, watch, setValue, formState: { errors } } = useFormContext<InvoiceData>();
+  const { register, watch, setValue } = useFormContext<InvoiceData>();
   const aiEnabled = useAiSettingsStore(state => state.aiEnabled);
 
   const description = watch(`lineItems.${index}.description`);
   const debouncedDescription = useDebounce(description, 800);
-  const qty = watch(`lineItems.${index}.quantity`);
+  // const qty = watch(`lineItems.${index}.quantity`);
   const rateInRupees = watch(`lineItems.${index}.rateInPaise`); // Assuming we bind the input directly and handle conversion later or via custom register
 
   const [aiLoading, setAiLoading] = useState(false);

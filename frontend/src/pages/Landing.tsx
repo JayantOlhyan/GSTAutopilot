@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Zap, ShieldCheck, FileText, CheckCircle } from "lucide-react";
+import { Zap, ShieldCheck, FileText } from "lucide-react";
 
 export default function Landing() {
   return (

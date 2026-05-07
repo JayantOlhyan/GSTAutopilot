@@ -2,7 +2,7 @@ import { useInvoiceStore } from "@/stores/invoiceStore";
 import { useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, ArrowLeft, Download, Eye } from "lucide-react";
+import { CheckCircle2, ArrowLeft, Eye } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
 export default function InvoicePreview() {
