@@ -7,8 +7,10 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@gstautopilot/shared": ["../shared/src"]
     },
+    "types": ["vite/client"],
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -21,8 +23,7 @@
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallbackReferences": true
+    "noUnusedParameters": true
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

@@ -1,4 +1,4 @@
-import { useFormContext, useFieldArray } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -85,7 +85,7 @@ export function GSTINSection() {
             />
             <div className="absolute right-3 top-2.5">
               {sellerValid === true && <CheckCircle2 className="h-5 w-5 text-brand-teal" />}
-              {sellerValid === false && <XCircle className="h-5 w-5 text-destructive" title={sellerError} />}
+              {sellerValid === false && <XCircle className="h-5 w-5 text-destructive" />}
             </div>
           </div>
           {errors.seller?.gstin && <p className="text-sm text-destructive">{errors.seller.gstin.message}</p>}
@@ -104,7 +104,7 @@ export function GSTINSection() {
             />
             <div className="absolute right-3 top-2.5">
               {buyerValid === true && <CheckCircle2 className="h-5 w-5 text-brand-teal" />}
-              {buyerValid === false && <XCircle className="h-5 w-5 text-destructive" title={buyerError} />}
+              {buyerValid === false && <XCircle className="h-5 w-5 text-destructive" />}
             </div>
           </div>
           {errors.buyer?.gstin && <p className="text-sm text-destructive">{errors.buyer.gstin.message}</p>}

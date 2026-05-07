@@ -1,8 +1,7 @@
 import { useFormContext } from "react-hook-form";
-import { InvoiceData } from "@gstautopilot/shared";
+import { InvoiceData, LineItem } from "@gstautopilot/shared";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import { apiClient } from "@/lib/axios";
 import { useState, useEffect } from "react";
 import { useInvoiceStore } from "@/stores/invoiceStore";
@@ -22,7 +21,7 @@ export function LivePreviewPanel() {
 
   useEffect(() => {
     // Dynamic preview tax calculation
-    const taxableValue = invoice.lineItems.reduce((acc, item) => acc + (item.taxableValueInPaise || 0), 0);
+    const taxableValue = invoice.lineItems.reduce((acc: number, item: LineItem) => acc + (item.taxableValueInPaise || 0), 0);
     const taxType = (invoice.seller?.stateCode && invoice.buyer?.stateCode && invoice.seller.stateCode === invoice.buyer.stateCode) 
       ? "CGST_SGST" 
       : "IGST";
@@ -142,7 +141,7 @@ export function LivePreviewPanel() {
               </tr>
             </thead>
             <tbody>
-              {invoice.lineItems?.map((item, i) => (
+              {invoice.lineItems?.map((item: LineItem, i: number) => (
                 <tr key={i} className="border-b border-gray-100">
                   <td className="py-2 px-1">{item.description || "—"}</td>
                   <td className="py-2 px-1">{item.sacCode || "—"}</td>

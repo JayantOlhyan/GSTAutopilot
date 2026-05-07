@@ -27,8 +27,8 @@ export default function Dashboard() {
   }, []);
 
   const totalInvoices = invoices.length;
-  const totalTaxable = invoices.reduce((acc, inv) => acc + inv.taxBreakdown.taxableValueInPaise, 0);
-  const totalGst = invoices.reduce((acc, inv) => {
+  const totalTaxable = invoices.reduce((acc: number, inv: InvoiceData) => acc + inv.taxBreakdown.taxableValueInPaise, 0);
+  const totalGst = invoices.reduce((acc: number, inv: InvoiceData) => {
     const tb = inv.taxBreakdown;
     return acc + (tb.cgstAmountInPaise || 0) + (tb.sgstAmountInPaise || 0) + (tb.igstAmountInPaise || 0);
   }, 0);
@@ -36,13 +36,13 @@ export default function Dashboard() {
   const formatRs = (paise: number) => `₹${(paise / 100).toFixed(2)}`;
 
   // Chart data: Group by date
-  const chartDataMap = invoices.reduce((acc: Record<string, number>, inv) => {
+  const chartDataMap = invoices.reduce((acc: Record<string, number>, inv: InvoiceData) => {
     const date = inv.invoiceDate;
     acc[date] = (acc[date] || 0) + (inv.taxBreakdown.taxableValueInPaise / 100);
     return acc;
   }, {});
   
-  const chartData = Object.keys(chartDataMap).map(date => ({
+  const chartData = Object.keys(chartDataMap).map((date: string) => ({
     name: date,
     value: chartDataMap[date]
   })).sort((a, b) => new Date(a.name).getTime() - new Date(b.name).getTime());
@@ -192,7 +192,7 @@ export default function Dashboard() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {invoices.slice().reverse().map((inv, idx) => (
+                  {invoices.slice().reverse().map((inv: InvoiceData, idx: number) => (
                     <TableRow key={idx}>
                       <TableCell className="font-medium">{inv.invoiceNumber}</TableCell>
                       <TableCell>{inv.invoiceDate}</TableCell>
